@@ -1,0 +1,101 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.grid-section {
+  background-color: white;
+  padding-bottom: 4rem;
+}
+
+.cupon {
+  width: 100px;
+}
+
+p,
+.gris,
+input[placeholder] {
+  color: #707070;
+  font-weight: 300;
+}
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url('assets/images/hero-pizza.png');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  height: 500px;
+  padding: 2rem;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.hero-section h1 {
+  font-weight: 900;
+  font-size: 60px;
+}
+
+.hero-section p {
+  color: white;
+}
+
+.section-titulo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pizza-card {
+  transition: .2s ease-in-out;
+}
+
+.pizza-card:hover {
+  transform: scale(1.05);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.pizza-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-img-top {
+  min-height: 250px;
+  max-height: 250px;
+  object-fit: cover;
+}
+
+.cardfooter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footer {
+  background-color: #292929;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+@media (max-width: 576px) {
+
+  .hero-section {
+    height: 80vh;
+  }
+
+}
