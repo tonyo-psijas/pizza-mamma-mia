@@ -3,24 +3,19 @@ import './App.css'
 import { Navbar } from './components/nav/Navbar.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import { GridComponent } from './components/grid/GridComponent.jsx'
-import { HeroComponent } from './components/hero/HeroComponent.jsx';
 import { FooterComponent } from './components/footer/FooterComponent.jsx';
+import { Home } from './components/home/home.jsx';
+import { Register } from './components/register/Register.jsx';
+import { Login } from './components/login/Login.jsx';
 
-function App({titulo = 'Mi app'}) {
-
-  const [numero, setNumber] = useState(0)
-
-  useEffect(() => {
-    console.log(numero)
-  }, [numero])
-  
+function App() {
 
   return (
     <>
       <Navbar />
-      <HeroComponent />
-      <GridComponent />
+      {/* <Home /> */}
+      <Register />
+      {/* <Login /> */}
       <FooterComponent />
     </>
   )
