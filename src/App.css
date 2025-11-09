@@ -7,7 +7,7 @@
   box-sizing: border-box;
 }
 
-.grid-section {
+.section {
   background-color: white;
   padding-bottom: 4rem;
 }
@@ -102,6 +102,12 @@ input[placeholder] {
   padding-top: 5rem;
 }
 
+.cart-section {
+  background-color: white;
+  min-height: 100vh;
+  padding-top: 5rem;
+}
+
 .form-title {
   text-align: center;
 }
@@ -136,10 +142,72 @@ input[placeholder] {
   font-weight: bold;
 }
 
+.pizza-cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.pizza-cart-element {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pizza-cart-element img {
+  max-width: 150px;
+  min-width: 150px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.cart-btn {
+  border-radius: 6px;
+  padding-inline: 0.8rem;
+  padding-block: 0.5rem;
+}
+
+.total-cart {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-pagar {
+  border-radius: 8px;
+}
+
+.lista-ingredientes {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.lista-ingredientes li::after {
+  content: ',\00a0' !important; /* coma + NBSP */
+}
+
+.lista-ingredientes li:last-child::after {
+  content: '' !important;
+}
+
 @media (max-width: 576px) {
 
   .hero-section {
     height: 80vh;
+  }
+
+  .pizza-cart-list {
+    gap: 1.5rem;
+  }
+
+  .pizza-cart-element img {
+    max-width: 80px;
+    min-width: 80px;
+    height: 80px;
   }
 
 }

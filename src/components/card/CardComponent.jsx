@@ -9,7 +9,13 @@ export function CardComponent({ nombre, src, ingredientes, precio }) {
         <div className="card-body">
           <div className="pizza-info">
             <h5 className="card-title fw-bold mb-3">{nombre}</h5>
-            <p className="card-text h6 fw-light">{ingredientes}</p>
+            <ul className='lista-ingredientes'>
+              {ingredientes.map(ingrediente =>
+                <li key={ingrediente}>
+                  {ingrediente}
+                </li>
+              )}
+            </ul>
           </div>
           <hr />
           <div className="cardfooter d-flex justify-content-between align-items-center">

@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/FooterComponent.jsx';
 import { Home } from './components/home/home.jsx';
 import { Register } from './components/register/Register.jsx';
 import { Login } from './components/login/Login.jsx';
+import PizzaCart from './components/cart/PizzaCart.jsx';
 
 function App() {
 
@@ -14,7 +15,8 @@ function App() {
     <>
       <Navbar />
       {/* <Home /> */}
-      <Register />
+      <PizzaCart />
+      {/* <Register /> */}
       {/* <Login /> */}
       <FooterComponent />
     </>
