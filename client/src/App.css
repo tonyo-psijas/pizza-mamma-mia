@@ -194,6 +194,10 @@ input[placeholder] {
   content: '' !important;
 }
 
+.pizza-card-api {
+  max-width: 500px;
+}
+
 @media (max-width: 576px) {
 
   .hero-section {

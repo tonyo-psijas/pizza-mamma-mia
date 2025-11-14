@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CardComponent } from '../card/CardComponent'
 import Button from 'react-bootstrap/Button';
-import { pizzas } from '../Pizzas';
 
 export const GridComponent = () => {
+
+  const [pizzas, setPizzas] = useState([])
+
+  const apiurl = 'http://localhost:5000/api/pizzas'
+
+  const getApi = async () => {
+    const resp = await fetch(apiurl)
+    const data = await resp.json()
+    console.log(data)
+    setPizzas(data)
+  }
+
+  useEffect(()=>{
+    getApi()
+  }, [])
 
   return (
     <div className='section'>
@@ -18,7 +32,7 @@ export const GridComponent = () => {
 
           {
             pizzas.map(pizza =>(
-              <CardComponent src={pizza.src} nombre={pizza.nombre} ingredientes={pizza.ingredientes} precio={pizza.precio} />
+              <CardComponent key={pizza.id} img={pizza.img} name={pizza.name} ingredients={pizza.ingredients} price={pizza.price} />
             ))
           }
 

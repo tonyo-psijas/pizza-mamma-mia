@@ -1,9 +1,27 @@
-import React, { useState } from 'react'
-import { pizzas } from '../Pizzas'
+import React, { useState, useEffect } from 'react'
 
 const PizzaCart = () => {
 
-    const [listaPizzas, setListaPizzas] = useState(pizzas)
+    const [listaPizzas, setListaPizzas] = useState([])
+
+    const apiurl = 'http://localhost:5000/api/pizzas'
+    
+    const getApi = async () => {
+        const resp = await fetch(apiurl)
+        const data = await resp.json()
+        
+        const pizzasConCantidad = data.map(pizza => ({
+            ...pizza,
+            cantidad: 1
+        }))
+        setListaPizzas(pizzasConCantidad)
+    }
+    
+    useEffect(()=>{
+        getApi()
+    }, [])
+
+    const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
     const pagarHandler = (e) => {
         e.preventDefault()
@@ -12,7 +30,7 @@ const PizzaCart = () => {
     
     const aumentarCantidad = (pizza) => {
         const nuevasPizzas = listaPizzas.map(p => 
-            p.nombre === pizza.nombre ? { ...p, cantidad: p.cantidad + 1 } : p
+            p.id === pizza.id ? { ...p, cantidad: p.cantidad + 1 } : p
         )
         setListaPizzas(nuevasPizzas)
     }
@@ -22,7 +40,7 @@ const PizzaCart = () => {
             eliminarPizza(pizza)
         } else {
             const nuevasPizzas = listaPizzas.map(p => 
-                p.nombre === pizza.nombre ? { ...p, cantidad: p.cantidad - 1 } : p
+                p.id === pizza.id ? { ...p, cantidad: p.cantidad - 1 } : p
             )
             setListaPizzas(nuevasPizzas)
         }
@@ -30,12 +48,12 @@ const PizzaCart = () => {
 
     let total = 0
     listaPizzas.forEach(pizza => {
-        total += pizza.precio * pizza.cantidad
+        total += pizza.price * pizza.cantidad
     })
     
 
     const eliminarPizza = (pizza) => {
-        const pizzasFiltradas = listaPizzas.filter(e => e.nombre !== pizza.nombre)
+        const pizzasFiltradas = listaPizzas.filter(e => e.name !== pizza.name)
         setListaPizzas(pizzasFiltradas)
     }
 
@@ -47,12 +65,12 @@ const PizzaCart = () => {
 
                 <ul className='pizza-cart-list'>
                     {listaPizzas.map(pizza =>
-                        <li key={pizza.nombre} className='pizza-cart-element'>
+                        <li key={pizza.id} className='pizza-cart-element'>
                             <div className='d-flex align-items-center gap-2 gap-md-4'>
-                                <img src={pizza.src} alt="" />
+                                <img src={pizza.img} alt="" />
                                 <div>
-                                    <span className='fw-normal'>{pizza.nombre}</span>
-                                    <h5 className='me-4 fw-bold'>${(pizza.precio * pizza.cantidad).toLocaleString('es-CL')}</h5>
+                                    <span className='fw-normal'>{capitalize(pizza.name)}</span>
+                                    <h5 className='me-4 fw-bold'>${(pizza.price * pizza.cantidad).toLocaleString('es-CL')}</h5>
                                 </div>
                                 
                             </div>

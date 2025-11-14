@@ -8,6 +8,7 @@ import { Home } from './components/home/home.jsx';
 import { Register } from './components/register/Register.jsx';
 import { Login } from './components/login/Login.jsx';
 import PizzaCart from './components/cart/PizzaCart.jsx';
+import PizzaApi from './components/pizza-api/PizzaApi.jsx';
 
 function App() {
 
@@ -15,9 +16,10 @@ function App() {
     <>
       <Navbar />
       {/* <Home /> */}
-      <PizzaCart />
+      {/* <PizzaCart /> */}
       {/* <Register /> */}
       {/* <Login /> */}
+      <PizzaApi />
       <FooterComponent />
     </>
   )
