@@ -98,7 +98,7 @@ input[placeholder] {
 
 .form-section {
   background-color: lightgray;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 5rem;
 }
 
@@ -198,6 +198,48 @@ input[placeholder] {
   max-width: 500px;
 }
 
+.not-found-page {
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.profile-element {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 2px 5px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.perfil-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.perfil-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.foto-perfil {
+  max-width: 100px;
+  border-radius: 50px;
+}
+
+.perfil-section {
+  border: 1px black solid;
+  padding: 1rem;
+  border-radius: 15px;
+}
+
 @media (max-width: 576px) {
 
   .hero-section {
@@ -212,6 +254,14 @@ input[placeholder] {
     max-width: 80px;
     min-width: 80px;
     height: 80px;
+  }
+
+  .perfil-body {
+    grid-template-columns: 1fr;
+  }
+
+  .form-section {
+    padding-top: 2rem;
   }
 
 }

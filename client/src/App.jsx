@@ -1,25 +1,37 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { Navbar } from './components/nav/Navbar.jsx'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
+import { Navbar } from './components/nav/Navbar.jsx'
 import { FooterComponent } from './components/footer/FooterComponent.jsx';
-import { Home } from './components/home/home.jsx';
-import { Register } from './components/register/Register.jsx';
-import { Login } from './components/login/Login.jsx';
-import PizzaCart from './components/cart/PizzaCart.jsx';
+import { Register } from './views/register/Register';
+import { Route, Routes } from 'react-router-dom'
+import { Login } from './views/login/Login.jsx';
+import { Home } from './views/home/Home.jsx';
 import PizzaApi from './components/pizza-api/PizzaApi.jsx';
+import PizzaCart from './views/cart/PizzaCart.jsx';
+import NotFound from './views/notfound/NotFound.jsx';
+import ProfilePage from './views/profile-page/ProfilePage.jsx';
 
 function App() {
 
   return (
     <>
       <Navbar />
-      {/* <Home /> */}
-      {/* <PizzaCart /> */}
-      {/* <Register /> */}
-      {/* <Login /> */}
-      <PizzaApi />
+
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login'  element={<Login />}/>
+          <Route path='/cart'  element={<PizzaCart />}/>
+          <Route path='/pizza/p001'  element={<PizzaApi />}/>     
+          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='*'  element={<NotFound />}/>
+
+        </Routes>
+
       <FooterComponent />
     </>
   )
