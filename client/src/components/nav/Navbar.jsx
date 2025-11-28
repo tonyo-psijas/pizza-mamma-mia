@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
 
 export const Navbar = () => {
 
-  const total = 25000;
+  const { listaPizzas } = useContext(CartContext)
+
+  const total = listaPizzas.reduce((acc, p) => acc + p.price * p.cantidad, 0);
   const token = false;
 
   return (

@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CardComponent } from '../card/CardComponent'
 import Button from 'react-bootstrap/Button';
+import { PizzaContext } from '../../context/PizzaContext';
 
 export const GridComponent = () => {
 
-  const [pizzas, setPizzas] = useState([])
-
-  const apiurl = 'http://localhost:5000/api/pizzas'
-
-  const getApi = async () => {
-    const resp = await fetch(apiurl)
-    const data = await resp.json()
-    console.log(data)
-    setPizzas(data)
-  }
-
-  useEffect(()=>{
-    getApi()
-  }, [])
+  const { pizzas } = useContext(PizzaContext)
 
   return (
     <div className='section'>
@@ -32,7 +20,7 @@ export const GridComponent = () => {
 
           {
             pizzas.map(pizza =>(
-              <CardComponent key={pizza.id} img={pizza.img} name={pizza.name} ingredients={pizza.ingredients} price={pizza.price} />
+              <CardComponent id={pizza.id} key={pizza.id} img={pizza.img} name={pizza.name} ingredients={pizza.ingredients} price={pizza.price} />
             ))
           }
 

@@ -1,32 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { CartContext } from '../../context/CartContext';
 
 const PizzaCart = () => {
 
-    const [listaPizzas, setListaPizzas] = useState([])
-
-    const apiurl = 'http://localhost:5000/api/pizzas'
-    
-    const getApi = async () => {
-        const resp = await fetch(apiurl)
-        const data = await resp.json()
-        
-        const pizzasConCantidad = data.map(pizza => ({
-            ...pizza,
-            cantidad: 1
-        }))
-        setListaPizzas(pizzasConCantidad)
-    }
-    
-    useEffect(()=>{
-        getApi()
-    }, [])
+    const { listaPizzas, setListaPizzas } = useContext(CartContext) 
 
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
-    const pagarHandler = (e) => {
-        e.preventDefault()
-        setListaPizzas(listaPizzas)
-    }
+    // const pagarHandler = (e) => {
+    //     e.preventDefault()
+    //     setListaPizzas(listaPizzas)
+    // }
     
     const aumentarCantidad = (pizza) => {
         const nuevasPizzas = listaPizzas.map(p => 
@@ -53,7 +37,7 @@ const PizzaCart = () => {
     
 
     const eliminarPizza = (pizza) => {
-        const pizzasFiltradas = listaPizzas.filter(e => e.name !== pizza.name)
+        const pizzasFiltradas = listaPizzas.filter(e => e.id !== pizza.id)
         setListaPizzas(pizzasFiltradas)
     }
 

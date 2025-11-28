@@ -14,25 +14,31 @@ import PizzaApi from './components/pizza-api/PizzaApi.jsx';
 import PizzaCart from './views/cart/PizzaCart.jsx';
 import NotFound from './views/notfound/NotFound.jsx';
 import ProfilePage from './views/profile-page/ProfilePage.jsx';
+import CartProvider from './context/CartContext.jsx';
+import PizzaProvider from './context/PizzaContext.jsx';
 
 function App() {
 
   return (
     <>
-      <Navbar />
+      <PizzaProvider>
+        <CartProvider>
+          <Navbar />
 
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login'  element={<Login />}/>
-          <Route path='/cart'  element={<PizzaCart />}/>
-          <Route path='/pizza/p001'  element={<PizzaApi />}/>     
-          <Route path='/profile' element={<ProfilePage />} />
-          <Route path='*'  element={<NotFound />}/>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/login'  element={<Login />}/>
+              <Route path='/cart'  element={<PizzaCart />}/>
+              <Route path='/pizza/p001'  element={<PizzaApi />}/>     
+              <Route path='/profile' element={<ProfilePage />} />
+              <Route path='*'  element={<NotFound />}/>
 
-        </Routes>
+            </Routes>
 
-      <FooterComponent />
+          <FooterComponent />
+        </CartProvider>
+      </PizzaProvider>
     </>
   )
 }
