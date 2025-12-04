@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { CartContext } from '../../context/CartContext';
+import { UserContext } from '../../context/UserContext';
 
 const PizzaCart = () => {
+
+    const { user } = useContext(UserContext)
+
+    const token = user.token
 
     const { listaPizzas, setListaPizzas } = useContext(CartContext) 
 
@@ -72,7 +77,11 @@ const PizzaCart = () => {
                 
                 <div className="total-cart">
                     <h4 className='fw-bold'>Total: ${total.toLocaleString('es-CL')}</h4>
-                    <button className='btn-pagar bg-success'>Pagar pedido</button>
+                    <button
+                        className={`btn-pagar bg-success ${!token ? "opacity-50 cursor-not-allowed" : ""}`}
+                        disabled={!token}>
+                            Pagar pedido
+                    </button>
                 </div>
 
             </div>

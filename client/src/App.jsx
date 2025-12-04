@@ -16,11 +16,13 @@ import NotFound from './views/notfound/NotFound.jsx';
 import ProfilePage from './views/profile-page/ProfilePage.jsx';
 import CartProvider from './context/CartContext.jsx';
 import PizzaProvider from './context/PizzaContext.jsx';
+import UserProvider from './context/UserContext.jsx';
 
 function App() {
 
   return (
     <>
+    <UserProvider>
       <PizzaProvider>
         <CartProvider>
           <Navbar />
@@ -30,7 +32,7 @@ function App() {
               <Route path='/register' element={<Register />} />
               <Route path='/login'  element={<Login />}/>
               <Route path='/cart'  element={<PizzaCart />}/>
-              <Route path='/pizza/p001'  element={<PizzaApi />}/>     
+              <Route path='/pizza/:id'  element={<PizzaApi />}/>     
               <Route path='/profile' element={<ProfilePage />} />
               <Route path='*'  element={<NotFound />}/>
 
@@ -39,6 +41,7 @@ function App() {
           <FooterComponent />
         </CartProvider>
       </PizzaProvider>
+    </UserProvider>
     </>
   )
 }

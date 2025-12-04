@@ -1,11 +1,19 @@
-import React, { use, useState } from 'react'
+import React, { use, useContext, useState } from 'react'
+import { UserContext } from '../../context/UserContext'
+import { useNavigate } from 'react-router-dom'
 
 export const Register = () => {
+
+    const navigate = useNavigate()
+
+    const { setUser } = useContext(UserContext)
 
     const [nombre, setNombre] = useState('')
     const [email, setEmail] = useState('')
     const [contrasena, setContrasena] = useState('')
     const [confirmContra, setConfirmContra] = useState('')
+    const [direccion, setDireccion] = useState('')
+    const [telefono, setTelefono] = useState('')
 
     const [errorGeneral, setErrorGeneral] = useState('')
     const [errorContra, setErrorContra] = useState('')
@@ -19,7 +27,7 @@ export const Register = () => {
         setErrorGeneral('')
         setErrorContraLength('')
 
-        if(!nombre.trim() || !email.trim() || !contrasena.trim() || !confirmContra.trim()) {
+        if(!nombre.trim() || !email.trim() || !contrasena.trim() || !confirmContra.trim() || !direccion.trim() || !telefono.trim()) {
             setErrorGeneral('Todos los campos son obligatorios');
             return;
         } else if (contrasena !== confirmContra) {
@@ -32,11 +40,28 @@ export const Register = () => {
 
         setNombre('')
         setEmail('')
+        setTelefono('')
+        setDireccion('')
         setContrasena('')
         setConfirmContra('')
 
         setSuccess('¡Tu cuenta ha sido creada exitosamente!')
 
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+            
+        setUser({
+            nombre,
+            email,
+            contrasena,
+            telefono,
+            direccion,
+            token: true
+        })
+
+        navigate("/profile")
     }
 
   return (
@@ -57,8 +82,20 @@ export const Register = () => {
 
                     <div className="form-group">
                         <label>Email</label>
-                        <input type="text" className="form-control" name='email' 
+                        <input type="email" className="form-control" name='email' 
                         onChange={(e) => setEmail(e.target.value)} value={email}/>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" className="form-control" name='telefono' 
+                        onChange={(e) => setTelefono(e.target.value)} value={telefono}/>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Dirección</label>
+                        <input type="text" className="form-control" name='direccion' 
+                        onChange={(e) => setDireccion(e.target.value)} value={direccion}/>
                     </div>
 
                     <div className="form-group">
@@ -77,9 +114,9 @@ export const Register = () => {
 
                     {errorContra ? <p className='error'>{errorContra}</p> : null}
 
-                    <button type='submit' className='btn btn-success'>Enviar</button>
+                    <button type='submit' className='btn btn-success' onClick={handleSubmit}>Crear cuenta</button>
 
-                    <a href="#" className='ya-tengo-cuenta text-dark'>Ya tengo una cuenta</a>
+                    <a href="#" className='ya-tengo-cuenta text-dark' onClick={() => navigate("/login")}>Ya tengo una cuenta</a>
 
                     <p className='mensajeExito'>{success}</p>
                 </form>

@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import { CartContext } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 export function CardComponent({ name, img, ingredients, price, id }) {
+
+  const navigate = useNavigate()
 
   const { listaPizzas, setListaPizzas } = useContext(CartContext)
 
@@ -34,7 +37,7 @@ export function CardComponent({ name, img, ingredients, price, id }) {
   return (
     <div key={id} className="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 my-4">
       <div className="card pizza-card mx-2 h-100">
-        <img src={img} className="card-img-top" alt="Pizza" />
+        <img src={img} className="card-img-top" alt="Pizza" onClick={() => navigate(`/pizza/${id}`)} />
         <div className="card-body">
           <div className="pizza-info">
             <h5 className="card-title fw-bold mb-3">{capitalize(name)}</h5>

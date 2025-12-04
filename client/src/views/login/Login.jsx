@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../context/UserContext'
 
 export const Login = () => {
 
+    const navigate = useNavigate()
+
+    const { user, setUser } = useContext(UserContext)
+
     const [email, setEmail] = useState('')
     const [contrasena, setContrasena] = useState('')
-
 
     const [errorGeneral, setErrorGeneral] = useState('')
     const [errorContraLength, setErrorContraLength] = useState('')
@@ -20,15 +25,29 @@ export const Login = () => {
         if(!email.trim() || !contrasena.trim()) {
             setErrorGeneral('Todos los campos son obligatorios');
             return;
-        } else if (contrasena.length < 6) {
+        }
+        
+        if (contrasena.length < 6) {
             setErrorContraLength('La contraseña debe tener al menos 6 caracteres');
             return;
         }
+        
+        if (email !== user.email || contrasena !== user.contrasena) {
+            setErrorGeneral('Email o contraseña incorrectos')
+            return;
+        }
+
+        setUser({
+            ...user,
+            token: true
+        })
 
         setEmail('')
         setContrasena('')
 
         setSuccess('¡Listo! ya has entrado a tu cuenta')
+
+        navigate("/profile")
 
     }
 
@@ -44,7 +63,7 @@ export const Login = () => {
 
                     <div className="form-group">
                         <label>Email</label>
-                        <input type="text" className="form-control" name='email' 
+                        <input type="email" className="form-control" name='email' 
                         onChange={(e) => setEmail(e.target.value)} value={email}/>
                     </div>
 
@@ -56,9 +75,9 @@ export const Login = () => {
 
                     {errorContraLength ? <p className='error'>{errorContraLength}</p> : null}
 
-                    <button type='submit' className='btn btn-success'>Enviar</button>
+                    <button type='submit' className='btn btn-success'>Ingresar</button>
 
-                    <a href="#" className='ya-tengo-cuenta text-dark'>Crear cuenta</a>
+                    <a href="#" className='ya-tengo-cuenta text-dark' onClick={() => navigate("/register")}>Crear cuenta</a>
 
                     <p className='mensajeExito'>{success}</p>
                 </form>

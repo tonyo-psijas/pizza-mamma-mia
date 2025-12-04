@@ -240,6 +240,10 @@ input[placeholder] {
   border-radius: 15px;
 }
 
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
 @media (max-width: 576px) {
 
   .hero-section {
