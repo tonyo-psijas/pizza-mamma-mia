@@ -7,19 +7,15 @@ import { UserContext } from '../../context/UserContext';
 export const Navbar = () => {
 
   const { listaPizzas } = useContext(CartContext)
-  const { user, setUser } = useContext(UserContext)
+  const { user, setUser, logout } = useContext(UserContext)
 
   const total = listaPizzas.reduce((acc, p) => acc + p.price * p.cantidad, 0);
 
   const navigate = useNavigate()
 
-  const token = user.token;
 
   const handleLogout = () => {
-    setUser({
-      ...user, token: false
-    })
-    navigate("/login")
+    logout()
   }
 
   return (
@@ -35,7 +31,7 @@ export const Navbar = () => {
                 <div className="navbar-nav ms-auto ps-2">
                 <NavLink to='/' className='nav-item nav-link'>Home</NavLink>
 
-                {token ? (
+                {user?.token ? (
                     <>
                       <NavLink to='/profile' className='nav-item nav-link'>Profile</NavLink>
                       <a className="nav-item nav-link me-2" href="#"

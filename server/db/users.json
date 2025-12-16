@@ -3,5 +3,25 @@
     "email": "test@test.com",
     "password": "123123",
     "id": "UYz_2Vy9rNw7uELQ7AZ8D"
+  },
+  {
+    "email": "appsijasig@gmail.com",
+    "password": "123456",
+    "id": "VukJhorHkpxKuB1AIlL_c"
+  },
+  {
+    "email": "gonzalo@gmail.com",
+    "password": "123456",
+    "id": "p0Aq94pKEBAAg0n8wW2_U"
+  },
+  {
+    "email": "test2@test.com",
+    "password": "123456",
+    "id": "WXYichzgQ8inozPOkkbpI"
+  },
+  {
+    "email": "appsijasig@test.com",
+    "password": "123456",
+    "id": "nSsxaogfz99lmfy79o328"
   }
 ]

@@ -4,9 +4,12 @@ import { UserContext } from '../../context/UserContext';
 
 const PizzaCart = () => {
 
+    const [error, setError] = useState("")
+    const [success, setSuccess] = useState("")
+
     const { user } = useContext(UserContext)
 
-    const token = user.token
+    const token = Boolean(user?.token)
 
     const { listaPizzas, setListaPizzas } = useContext(CartContext) 
 
@@ -46,6 +49,47 @@ const PizzaCart = () => {
         setListaPizzas(pizzasFiltradas)
     }
 
+    const pagarHandler = async () => {
+
+
+        if (!user?.token) return
+
+        try {
+            const payload = {
+                items: listaPizzas.map(pizza => ({
+                    pizzaId: pizza.id,
+                    cantidad: pizza.cantidad,
+                    precio: pizza.price
+                })),
+                total
+            }
+
+            const resp = await fetch("http://localhost:5000/api/checkouts", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${user.token}`
+                },
+                body: JSON.stringify(payload)
+            })
+
+            const data = await resp.json()
+
+            if (!resp.ok) {
+                throw new Error(data.error)
+            }
+
+            console.log("Pedido creado:", data)
+
+            setListaPizzas([])
+            setSuccess("Pedido realizado con éxito")
+
+        } catch (error) {
+            console.log("Error en el checkout:", error)
+            setError("No se pudo completar el pedido")
+        }
+    }
+
   return (
     <>
         <section className='section cart-section'>
@@ -73,13 +117,17 @@ const PizzaCart = () => {
                     )}
                 </ul>
 
+                {error ? <p className='error'>{error}</p> : null}
+                <p className='mensajeExito'>{success}</p>
+
                 <hr />
                 
                 <div className="total-cart">
                     <h4 className='fw-bold'>Total: ${total.toLocaleString('es-CL')}</h4>
                     <button
                         className={`btn-pagar bg-success ${!token ? "opacity-50 cursor-not-allowed" : ""}`}
-                        disabled={!token}>
+                        disabled={!token}
+                        onClick={pagarHandler}>
                             Pagar pedido
                     </button>
                 </div>

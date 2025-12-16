@@ -6,7 +6,7 @@ export const Register = () => {
 
     const navigate = useNavigate()
 
-    const { setUser } = useContext(UserContext)
+    const { register } = useContext(UserContext)
 
     const [nombre, setNombre] = useState('')
     const [email, setEmail] = useState('')
@@ -21,47 +21,55 @@ export const Register = () => {
 
     const [success, setSuccess] = useState('')
 
-    const validarDatos = (e) => {
-        e.preventDefault()
+    const validarDatos = () => {
 
         setErrorGeneral('')
+        setErrorContra('')
         setErrorContraLength('')
 
         if(!nombre.trim() || !email.trim() || !contrasena.trim() || !confirmContra.trim() || !direccion.trim() || !telefono.trim()) {
             setErrorGeneral('Todos los campos son obligatorios');
-            return;
-        } else if (contrasena !== confirmContra) {
+            return false;
+        }
+        
+        if (contrasena !== confirmContra) {
             setErrorContra('Las contraseñas no coinciden');
-            return;
-        } else if (contrasena.length < 6) {
+            return false;
+        }
+        
+        if (contrasena.length < 6) {
             setErrorContraLength('La contraseña debe tener al menos 6 caracteres');
-            return;
+            return false;
         }
 
-        setNombre('')
-        setEmail('')
-        setTelefono('')
-        setDireccion('')
-        setContrasena('')
-        setConfirmContra('')
-
-        setSuccess('¡Tu cuenta ha sido creada exitosamente!')
-
+        return true
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
             
-        setUser({
-            nombre,
-            email,
-            contrasena,
-            telefono,
-            direccion,
-            token: true
-        })
+        if (!validarDatos()) return;
 
-        navigate("/profile")
+        try {
+            const resp = await register(nombre, email, contrasena, telefono, direccion)
+
+            if (resp?.token) {
+                setNombre('')
+                setEmail('')
+                setTelefono('')
+                setDireccion('')
+                setContrasena('')
+                setConfirmContra('')
+
+                setSuccess('¡Tu cuenta ha sido creada exitosamente!')
+
+                navigate("/profile")
+
+            }
+        } catch (error) {
+            setErrorGeneral("Error al registrar usuario")
+        }
+
     }
 
   return (
@@ -69,7 +77,7 @@ export const Register = () => {
         <div className="form-section">
 
             <div className="container">
-                <form className='formulario mx-auto pt-5' onSubmit={validarDatos}>
+                <form className='formulario mx-auto pt-5' onSubmit={handleSubmit}>
                     <h3 className='form-title'>Crea tu cuenta</h3>
 
                     {errorGeneral ? <p className='error'>{errorGeneral}</p> : null}
@@ -114,7 +122,7 @@ export const Register = () => {
 
                     {errorContra ? <p className='error'>{errorContra}</p> : null}
 
-                    <button type='submit' className='btn btn-success' onClick={handleSubmit}>Crear cuenta</button>
+                    <button type='submit' className='btn btn-success'>Crear cuenta</button>
 
                     <a href="#" className='ya-tengo-cuenta text-dark' onClick={() => navigate("/login")}>Ya tengo una cuenta</a>
 

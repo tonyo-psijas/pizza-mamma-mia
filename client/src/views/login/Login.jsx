@@ -6,7 +6,7 @@ export const Login = () => {
 
     const navigate = useNavigate()
 
-    const { user, setUser } = useContext(UserContext)
+    const { login } = useContext(UserContext)
 
     const [email, setEmail] = useState('')
     const [contrasena, setContrasena] = useState('')
@@ -16,7 +16,7 @@ export const Login = () => {
 
     const [success, setSuccess] = useState('')
 
-    const validarDatos = (e) => {
+    const validarDatos = async (e) => {
         e.preventDefault()
 
         setErrorGeneral('')
@@ -32,22 +32,24 @@ export const Login = () => {
             return;
         }
         
-        if (email !== user.email || contrasena !== user.contrasena) {
+        // if (email !== user.email || contrasena !== user.contrasena) {
+        //     setErrorGeneral('Email o contraseña incorrectos')
+        //     return;
+        // }
+
+        try {
+            const resp = await login(email, contrasena)
+
+            if (resp?.token) {
+                setEmail("")
+                setContrasena("")
+                navigate("/profile")
+                setSuccess('¡Listo! ya has entrado a tu cuenta')
+            }
+
+        } catch (error) {
             setErrorGeneral('Email o contraseña incorrectos')
-            return;
         }
-
-        setUser({
-            ...user,
-            token: true
-        })
-
-        setEmail('')
-        setContrasena('')
-
-        setSuccess('¡Listo! ya has entrado a tu cuenta')
-
-        navigate("/profile")
 
     }
 
